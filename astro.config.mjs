@@ -7,7 +7,8 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
     output: 'server',
     server: {
-      host: true
+      host: true,
+      port: 4322,
     },
     prefetch: false,
     adapter: bun(),
