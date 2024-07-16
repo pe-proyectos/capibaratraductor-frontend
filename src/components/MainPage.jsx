@@ -217,7 +217,7 @@ export function MainPage() {
     return (
         <main className="min-h-svh w-full">
             <div className="min-h-svh w-full grid grid-cols-4">
-                <div className="w-full col-span-1 p-4">
+                <div className="w-full col-span-1 p-4 h-svh overflow-y-auto">
                     <div className="flex align-middle justify-between mb-4">
                         <div className="my-auto">
                             <p className="text-2xl">Capibara Traductor</p>
