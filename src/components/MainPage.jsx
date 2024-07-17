@@ -9,6 +9,7 @@ import {
     TextInput,
     Textarea,
     toaster,
+    Overlay,
     Spinner
 } from "evergreen-ui";
 import { ImageFileUploader } from "./ImageFileUploader";
@@ -37,6 +38,7 @@ export function MainPage() {
 
     const [editingZone, setEditingZone] = useState(null);
 
+    const [loadingOverlayIsShown, setLoadingOverlayIsShown] = useState(false);
     const [exportDialogIsShown, setExportDialogIsShown] = useState(false);
     const [manualCorrectionDialogIsShown, setManualCorrectionDialogIsShown] = useState(false);
 
@@ -96,6 +98,7 @@ export function MainPage() {
 
     const translateZone = async (imageName, base64String) => {
         try {
+            setLoadingOverlayIsShown(true);
             const response = await fetch(`${import.meta.env.PUBLIC_API_URL}/api/translate`, {
                 method: 'POST',
                 headers: {
@@ -129,6 +132,8 @@ export function MainPage() {
             }
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoadingOverlayIsShown(false);
         }
     };
 
@@ -514,6 +519,28 @@ export function MainPage() {
                     </Pane>
                 </Dialog>
             </Pane>
+            <Overlay
+                isShown={loadingOverlayIsShown}
+                shouldAutoFocus={true}
+                shouldCloseOnClick={false}
+                shouldCloseOnEscapePress={false}
+                preventBodyScrolling={true}
+            >
+                <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
+                    <div className="flex items-center justify-center w-[28rem] bg-black bg-opacity-50 backdrop-blur-sm rounded-md py-6 px-4">
+                        <img
+                            className="object-cover"
+                            src="/capibara.png"
+                            alt="Capibara"
+                            width="128px"
+                            />
+                        <div>
+                            <p className="text-4xl text-white font-light">Traduciendo...</p>
+                            <p className="ml-1 mt-2 text-gray-300 font-light">Estamos traduciendo tu imagen<br />esto puede tardar unos segundos...</p>
+                        </div>
+                    </div>
+                </div>
+            </Overlay>
         </main>
     );
 }
