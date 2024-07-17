@@ -22,7 +22,7 @@ export function MainPage() {
     const [selectedImageName, setSelectedImageName] = useState(null);
 
     const [zoomScale, setZoomScale] = useState(0.8);
-    const [zoomScaleSelect, setZoomScaleSelect] = useState("75%");
+    const [zoomScaleSelect, setZoomScaleSelect] = useState("50%");
 
     const [fromLanguage, setFromLanguage] = useState('ja');
     const [toLanguage, setToLanguage] = useState('es');
@@ -30,6 +30,7 @@ export function MainPage() {
     const [horizontalReadingDirection, setHorizontalReadingDirection] = useState('RL');
     const [verticalReadingDirection, setVerticalReadingDirection] = useState('TB');
 
+    const [separateDialogs, setSeparateDialogs] = useState(true);
     const [keepContext, setKeepContext] = useState(true);
     const [titleFormat, setTitleFormat] = useState(`Imagen {orderNumber}: {fileName}`);
     const [lineFormat, setLineFormat] = useState(`- {translatedText}`);
@@ -111,6 +112,7 @@ export function MainPage() {
                     horizontalReadingDirection,
                     verticalReadingDirection,
                     keepContext,
+                    separateDialogs,
                 }),
             });
             const { data: translations } = await response.json();
@@ -397,6 +399,13 @@ export function MainPage() {
                                     <option value="TB">Arriba a abajo</option>
                                     <option value="BT">Abajo a arriba</option>
                                 </Select>
+                            </div>
+                            <div className="my-2">
+                                <div className="flex gap-2 items-center">
+                                    <Switch checked={separateDialogs} onChange={(e) => setSeparateDialogs(e.target.checked)} />
+                                    <span className="text-sm">Separar dialogos</span>
+                                </div>
+                                <span className="text-xs  text-gray-600">Se separaran los dialogos en diferentes traducciones cuando se haga una selección</span>
                             </div>
                             <div className="my-2">
                                 <div className="flex gap-2 items-center">
