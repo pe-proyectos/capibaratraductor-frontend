@@ -20,6 +20,9 @@ export function MainPage() {
     const $imagesFiles = useStore(imagesFiles);
     const [selectedImageName, setSelectedImageName] = useState(null);
 
+    const [zoomScale, setZoomScale] = useState(0.8);
+    const [zoomScaleSelect, setZoomScaleSelect] = useState("75%");
+
     const [fromLanguage, setFromLanguage] = useState('ja');
     const [toLanguage, setToLanguage] = useState('es');
 
@@ -47,6 +50,10 @@ export function MainPage() {
             }
         }
     }, [$imagesFiles]);
+
+    useEffect(() => {
+        setZoomScale(parseFloat(zoomScaleSelect.replace("%", "")) / 100);
+    }, [zoomScaleSelect]);
 
     const createImageTranslation = (imageName, zone) => {
         const prevTranslations = { ...translations.get() };
@@ -150,6 +157,26 @@ export function MainPage() {
         });
     }
 
+    const translateAllTexts = () => {
+        if (!$imagesFiles?.[selectedImageName]?.file) {
+            toaster.warning("No se ha seleccionado ninguna imagen");
+            return;
+        }
+        const file = $imagesFiles[selectedImageName].file;
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            translateZone(selectedImageName, reader.result);
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
+
+    const removeAllTranslations = () => {
+        translations.set({});
+    }
+
     const downloadTXT = (fileName, content) => {
         const blob = new Blob([content], { type: 'text/plain' });
         const link = document.createElement('a');
@@ -233,7 +260,7 @@ export function MainPage() {
                     <ImageFileUploader />
                     <p className={"text-2xl my-4" + (Object.values($imagesFiles).length > 0 ? "" : " hidden")}>Archivos</p>
                     <ul>
-                        {Object.values($imagesFiles).sort((a, b) => a.name.localeCompare(b.name)).map((image) => (
+                        {Object.values($imagesFiles).sort((a, b) => a.order - b.order).map((image) => (
                             <li key={image.name}>
                                 <div
                                     className={
@@ -264,7 +291,7 @@ export function MainPage() {
                     </ul>
                 </div>
                 <div className="w-full h-full col-span-3 bg-gradient-to-r from-rose-700 to-indigo-700 p-4">
-                    <div className="w-[calc(75svw-2rem)] h-[calc(100svh-40svh-2rem)] max-h-[calc(100svh-2rem)] overflow-hidden">
+                    <div className="relative w-[calc(75svw-2rem)] h-[calc(100svh-40svh-2rem)] max-h-[calc(100svh-2rem)] overflow-hidden">
                         <div className={"flex w-full h-full items-center justify-center" + (selectedImageName !== null && Object.values($imagesFiles).length !== 0 ? " hidden" : "")}>
                             <p className="text-white text-2xl font-light">
                                 Sube/Selecciona una imagen para comenzar a traducir
@@ -273,11 +300,20 @@ export function MainPage() {
                         <ImageCanvas
                             image={$imagesFiles?.[selectedImageName]}
                             handleZoneSelected={handleZoneSelected}
+                            zoomScale={zoomScale}
                         />
                     </div>
-                    <div className="flex gap-2 w-full h-[calc(40svh-2rem)] mt-[2rem] bg-white shadow-sm rounded-md px-4 py-2">
+                    <div className="flex gap-2 w-full h-[calc(40svh-2rem)] mt-[2rem] bg-white bg-opacity-95 shadow-sm rounded-md px-4 py-2">
                         <div className="w-[calc(50%-1rem)] overflow-y-auto">
                             <p className="text-lg font-light my-2">Traducciones</p>
+                            <div className="flex flex-wrap w-full gap-2 my-2 items-center justify-evenly">
+                                <Button appearance="minimal" onClick={() => translateAllTexts()}>
+                                    Traducir todos los textos en la imagen
+                                </Button>
+                                <Button appearance="minimal" onClick={() => removeAllTranslations()}>
+                                    Borrar todas las traducciones de la imagen
+                                </Button>
+                            </div>
                             <ul className="flex flex-wrap gap-2">
                                 {$translations[selectedImageName] && $translations[selectedImageName].map((selectedZone, index) => (
                                     <li key={index} className="hover:bg-gray-100 rounded-md w-full">
@@ -319,6 +355,15 @@ export function MainPage() {
                         <div className="w-[1px] bg-gray-200 rounded-md"></div>
                         <div className="w-[calc(50%-1rem)] overflow-y-auto">
                             <p className="text-lg font-light my-2">Opciones</p>
+                            <div className="flex gap-2 my-2 items-center">
+                                <span className="text-sm">Zoom de la imagen</span>
+                                <Select value={zoomScaleSelect} onChange={event => setZoomScaleSelect(event.target.value)}>
+                                    <option value="25%">25%</option>
+                                    <option value="50%">50%</option>
+                                    <option value="75%">75%</option>
+                                    <option value="100%">100%</option>
+                                </Select>
+                            </div>
                             <div className="flex gap-2 my-2 items-center">
                                 <span className="text-sm">Traducir de</span>
                                 <Select value={fromLanguage} onChange={event => setFromLanguage(event.target.value)}>

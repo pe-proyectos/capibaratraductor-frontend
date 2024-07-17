@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export function ImageCanvas({ image, handleZoneSelected }) {
+export function ImageCanvas({ image, handleZoneSelected, zoomScale }) {
     const canvasRef = useRef(null);
     const imageRef = useRef(null);
     const [selection, setSelection] = useState(null);
@@ -21,6 +21,17 @@ export function ImageCanvas({ image, handleZoneSelected }) {
         };
         reader.readAsDataURL(image.file);
     }, [image, canvasOffset]);
+
+    useEffect(() => {
+        if (!image?.file) return;
+        setCanvasOffset(prev => {
+            return {
+                x: prev.x,
+                y: 0
+            };
+        });
+        drawImage();
+    }, [zoomScale]);
 
     useEffect(() => {
         if (!image?.file) return;
@@ -69,10 +80,10 @@ export function ImageCanvas({ image, handleZoneSelected }) {
         context.setTransform(1, 0, 0, 1, 0, canvasOffset.y);
         context.clearRect(0, 0, canvas.width, canvas.height);
         const scale = canvas.width / img.width;
-        const imageHeight = img.height > img.height * scale ? img.height * scale : img.height;
-        const heightOffset = imageHeight > canvas.height ? 0 : (canvas.height / 2) - (imageHeight / 2);
-        const widthOffset = img.width > canvas.width ? 0 : (canvas.width / 2) - (img.width / 2);
-        context.drawImage(img, widthOffset, heightOffset, Math.min(img.width, canvas.width), imageHeight);
+        const imageHeight = img.height * scale;
+        const heightOffset = imageHeight * zoomScale > canvas.height ? 0 : (canvas.height / 2) - (imageHeight * zoomScale / 2);
+        const widthOffset = img.width * scale * zoomScale > canvas.width ? 0 : (canvas.width / 2) - (img.width * scale * zoomScale / 2);
+        context.drawImage(img, widthOffset, heightOffset, img.width * scale * zoomScale, imageHeight * zoomScale);
         if (selection) {
             const { start, end } = selection;
             context.strokeStyle = 'red';
@@ -97,6 +108,7 @@ export function ImageCanvas({ image, handleZoneSelected }) {
             setSelection(null);
         }
     };
+
     const handleMouseMove = (e) => {
         if (isSelecting) {
             const rect = canvasRef.current.getBoundingClientRect();
@@ -108,6 +120,7 @@ export function ImageCanvas({ image, handleZoneSelected }) {
             drawImage();
         }
     };
+
     const handleMouseUp = (e) => {
         if (isSelecting) {
             setIsSelecting(false);
@@ -136,25 +149,27 @@ export function ImageCanvas({ image, handleZoneSelected }) {
     };
 
     const handleWheel = (e) => {
-        e.preventDefault();
-
         if (isSelecting) {
             return;
         }
 
         const offsetY = e.deltaY;
-    
+
         setCanvasOffset(prev => {
             const scale = canvasRef.current.width / imageRef.current.width;
-            const imageHeight = imageRef.current.height * scale;
+            const imageHeight = imageRef.current.height * scale * zoomScale;
             const heightOffset = imageHeight > canvasRef.current.height ? 0 : (canvasRef.current.height / 2) - (imageHeight / 2);
             const maxOffset = Math.max(imageHeight - canvasRef.current.height, 0);
-            if (imageRef.current.height <= canvasRef.current.height) {
-                return prev;
+
+            if (imageHeight <= canvasRef.current.height) {
+                return {
+                    x: prev.x,
+                    y: 0
+                };
             }
-            
+
             const newOffsetY = Math.max(Math.min(prev.y - offsetY + heightOffset, heightOffset), -maxOffset + heightOffset);
-    
+
             return {
                 ...prev,
                 y: newOffsetY,
@@ -173,7 +188,7 @@ export function ImageCanvas({ image, handleZoneSelected }) {
         <canvas
             ref={canvasRef}
             style={canvasStyle}
-            className="bg-black shadow-lg m-auto cursor-crosshair rounded-md"
+            className="bg-black bg-opacity-60 shadow-lg m-auto cursor-crosshair rounded-md"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
