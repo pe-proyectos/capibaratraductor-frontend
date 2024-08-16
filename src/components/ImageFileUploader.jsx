@@ -54,21 +54,21 @@ export function ImageFileUploader() {
         console.log(fileRejections);
         fileRejections.forEach((fileRejection) => {
             console.log();
-            toaster.danger('Error al subir el archivo', {
-                description: `No se puede agregar el archivo ${fileRejection.file.name}`
+            toaster.danger('Error uploading file', {
+                description: `Unable to add the file ${fileRejection.file.name}`
             });
         })
     }, [])
     return (
         <Pane maxWidth={654}>
             <FileUploader
-                label="Subir imagenes"
-                description="Puedes subir 1 imagen con un tamaño máximo de 8MB en formato de jpg, jpeg, png o webp."
+                label="Upload images"
+                description="You can upload 1 image with a maximum size of 8MB in jpg, jpeg, png or webp format."
                 acceptedMimeTypes={["image/jpeg", "image/jpg", "image/png", "image/webp"]}
                 browseOrDragText={
                     () => <p>
-                        <span className="text-blue-500">Selecciona</span>
-                        <span>&nbsp;o Arrastra una o más imágenes para iniciar</span>
+                        <span className="text-blue-500">Select</span>
+                        <span>&nbsp;or Drag one or more images to start</span>
                     </p>
                 }
                 maxSizeInBytes={8 * 1024 ** 2}
