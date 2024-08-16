@@ -314,9 +314,6 @@ export function MainPage() {
                         <div className="w-[calc(50%-1rem)] overflow-y-auto">
                             <p className="text-lg font-light my-2">Translations</p>
                             <div className="flex flex-wrap w-full gap-2 my-2 items-center justify-evenly">
-                                <Button appearance="minimal" onClick={() => translateAllTexts()}>
-                                    Translate all texts in image
-                                </Button>
                                 <Button appearance="minimal" onClick={() => removeAllTranslations()}>
                                     Delete all texts in image
                                 </Button>
@@ -379,6 +376,9 @@ export function MainPage() {
                                     <option value="ko">Korean</option>
                                     <option value="pt">Portuguese</option>
                                     <option value="es">Spanish</option>
+                                    <option value="ko">Chinese</option>
+                                    <option value="pt">French</option>
+                                    <option value="es">Arabic</option>
                                 </Select>
                                 <span className="text-sm">to</span>
                                 <Select value={toLanguage} onChange={event => setToLanguage(event.target.value)}>
@@ -387,6 +387,9 @@ export function MainPage() {
                                     <option value="ko">Korean</option>
                                     <option value="pt">Portuguese</option>
                                     <option value="es">Spanish</option>
+                                    <option value="ko">Chinese</option>
+                                    <option value="pt">French</option>
+                                    <option value="es">Arabic</option>
                                 </Select>
                             </div>
                             <div className="flex gap-2 my-2 items-center">
