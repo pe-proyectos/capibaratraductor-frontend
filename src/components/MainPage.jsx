@@ -94,7 +94,7 @@ export function MainPage() {
             translated: true
         });
         setEditingZone(null);
-        setManualCorrectionDialogIsShown(false);
+        setManualCorrectionDialogIsShown(false);Español
     }
 
     const translateZone = async (imageName, base64String) => {
@@ -117,7 +117,7 @@ export function MainPage() {
             });
             const { data: translations } = await response.json();
             if (translations.length === 0) {
-                toaster.warning("No se encontró texto en la zona seleccionada");
+                toaster.warning("No text found in the selected area");
                 return;
             }
             for (const { originalText, translatedText } of translations) {
@@ -166,7 +166,7 @@ export function MainPage() {
 
     const translateAllTexts = () => {
         if (!$imagesFiles?.[selectedImageName]?.file) {
-            toaster.warning("No se ha seleccionado ninguna imagen");
+            toaster.warning("No image has been selected");
             return;
         }
         const file = $imagesFiles[selectedImageName].file;
@@ -201,7 +201,7 @@ export function MainPage() {
         const currentYear = now.getFullYear().toString();
         const hour = now.getHours().toString().padStart(2, '0');
         const minute = now.getMinutes().toString().padStart(2, '0');
-        return `${userFileName || "traducción"} - ${currentDate}/${currentMonth}/${currentYear} ${hour}:${minute}.capibaratraductor.txt`;
+        return `${userFileName || "translation"} - ${currentDate}/${currentMonth}/${currentYear} ${hour}:${minute}.capibaratraductor.txt`;
     }
     const downloadPageExport = () => {
         if (!selectedImageName) return;
@@ -255,7 +255,7 @@ export function MainPage() {
                     <div className="flex align-middle justify-between mb-4">
                         <div className="my-auto">
                             <p className="text-2xl">Capibara Traductor</p>
-                            <p className="my-auto">Tu traductor de imágenes</p>
+                            <p className="my-auto">Image translator</p>
                         </div>
                         <img
                             className="object-cover"
@@ -265,7 +265,7 @@ export function MainPage() {
                         />
                     </div>
                     <ImageFileUploader />
-                    <p className={"text-2xl my-4" + (Object.values($imagesFiles).length > 0 ? "" : " hidden")}>Archivos</p>
+                    <p className={"text-2xl my-4" + (Object.values($imagesFiles).length > 0 ? "" : " hidden")}>Files</p>
                     <ul>
                         {Object.values($imagesFiles).sort((a, b) => a.order - b.order).map((image) => (
                             <li key={image.name}>
@@ -280,8 +280,8 @@ export function MainPage() {
                                         onClick={() => selectImageFile(image.name)}
                                     >
                                         <svg className="inline w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <path fill="currentColor" d="M16 18H8l2.5-6 2 4 1.5-2 2 4Zm-1-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>
-                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1ZM8 18h8l-2-4-1.5 2-2-4L8 18Zm7-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>
+                                            <path fill="currentColor" d="M16 18H8l2.5-6 2 4 1.5-2 2 4Zm-1-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1ZM8 18h8l-2-4-1.5 2-2-4L8 18Zm7-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
                                         </svg>
                                         <span className="inline text-sm mx-1">
                                             {image.name}
@@ -289,7 +289,7 @@ export function MainPage() {
                                     </div>
                                     <span className="cursor-pointer hover:text-gray-800 hover:bg-red-400 rounded-md" onClick={() => removeImage(image.name)}>
                                         <svg className="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
                                         </svg>
                                     </span>
                                 </div>
@@ -301,7 +301,7 @@ export function MainPage() {
                     <div className="relative w-[calc(75svw-2rem)] h-[calc(100svh-40svh-2rem)] max-h-[calc(100svh-2rem)] overflow-hidden">
                         <div className={"flex w-full h-full items-center justify-center" + (selectedImageName !== null && Object.values($imagesFiles).length !== 0 ? " hidden" : "")}>
                             <p className="text-white text-2xl font-light">
-                                Sube/Selecciona una imagen para comenzar a traducir
+                                Upload/Select an image to start translation.
                             </p>
                         </div>
                         <ImageCanvas
@@ -312,13 +312,13 @@ export function MainPage() {
                     </div>
                     <div className="flex gap-2 w-full h-[calc(40svh-2rem)] mt-[2rem] bg-white bg-opacity-95 shadow-sm rounded-md px-4 py-2">
                         <div className="w-[calc(50%-1rem)] overflow-y-auto">
-                            <p className="text-lg font-light my-2">Traducciones</p>
+                            <p className="text-lg font-light my-2">Translations</p>
                             <div className="flex flex-wrap w-full gap-2 my-2 items-center justify-evenly">
                                 <Button appearance="minimal" onClick={() => translateAllTexts()}>
-                                    Traducir todos los textos en la imagen
+                                    Translate all texts in image
                                 </Button>
                                 <Button appearance="minimal" onClick={() => removeAllTranslations()}>
-                                    Borrar todas las traducciones de la imagen
+                                    Delete all texts in image
                                 </Button>
                             </div>
                             <ul className="flex flex-wrap gap-2">
@@ -344,12 +344,12 @@ export function MainPage() {
                                                 <div className="flex gap-2 mx-2">
                                                     <span className="cursor-pointer hover:text-blue-600 rounded-md" onClick={() => openEditingZone(selectedZone)}>
                                                         <svg className="w-6 h-6 translate-y-[1px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
                                                         </svg>
                                                     </span>
                                                     <span className="cursor-pointer hover:text-red-600 rounded-md" onClick={() => removeSelectedZone(index)}>
                                                         <svg className="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
                                                         </svg>
                                                     </span>
                                                 </div>
@@ -361,9 +361,9 @@ export function MainPage() {
                         </div>
                         <div className="w-[1px] bg-gray-200 rounded-md"></div>
                         <div className="w-[calc(50%-1rem)] overflow-y-auto">
-                            <p className="text-lg font-light my-2">Opciones</p>
+                            <p className="text-lg font-light my-2">Settings</p>
                             <div className="flex gap-2 my-2 items-center">
-                                <span className="text-sm">Zoom de la imagen</span>
+                                <span className="text-sm">Image zoom</span>
                                 <Select value={zoomScaleSelect} onChange={event => setZoomScaleSelect(event.target.value)}>
                                     <option value="25%">25%</option>
                                     <option value="50%">50%</option>
@@ -372,49 +372,49 @@ export function MainPage() {
                                 </Select>
                             </div>
                             <div className="flex gap-2 my-2 items-center">
-                                <span className="text-sm">Traducir de</span>
+                                <span className="text-sm">Translate from</span>
                                 <Select value={fromLanguage} onChange={event => setFromLanguage(event.target.value)}>
-                                    <option value="ja">Japonés</option>
-                                    <option value="en">Ingles</option>
-                                    <option value="ko">Koreano</option>
-                                    <option value="pt">Portugués</option>
-                                    <option value="es">Español</option>
+                                    <option value="ja">Japanese</option>
+                                    <option value="en">English</option>
+                                    <option value="ko">Korean</option>
+                                    <option value="pt">Portuguese</option>
+                                    <option value="es">Spanish</option>
                                 </Select>
-                                <span className="text-sm">a</span>
+                                <span className="text-sm">to</span>
                                 <Select value={toLanguage} onChange={event => setToLanguage(event.target.value)}>
-                                    <option value="ja">Japonés</option>
-                                    <option value="en">Ingles</option>
-                                    <option value="ko">Koreano</option>
-                                    <option value="pt">Portugués</option>
-                                    <option value="es">Español</option>
+                                    <option value="ja">Japanese</option>
+                                    <option value="en">English</option>
+                                    <option value="ko">Korean</option>
+                                    <option value="pt">Portuguese</option>
+                                    <option value="es">Spanish</option>
                                 </Select>
                             </div>
                             <div className="flex gap-2 my-2 items-center">
-                                <span className="text-sm">Orden de lectura</span>
+                                <span className="text-sm">Reading order</span>
                                 <Select value={horizontalReadingDirection} onChange={event => setHorizontalReadingDirection(event.target.value)}>
-                                    <option value="LR">Izquierda a derecha</option>
-                                    <option value="RL">Derecha a izquierda</option>
+                                    <option value="LR">Left to right</option>
+                                    <option value="RL">Right to left</option>
                                 </Select>
                                 <Select value={verticalReadingDirection} onChange={event => setVerticalReadingDirection(event.target.value)}>
-                                    <option value="TB">Arriba a abajo</option>
-                                    <option value="BT">Abajo a arriba</option>
+                                    <option value="TB">Top to bottom</option>
+                                    <option value="BT">Bottom to top</option>
                                 </Select>
                             </div>
                             <div className="my-2">
                                 <div className="flex gap-2 items-center">
                                     <Switch checked={separateDialogs} onChange={(e) => setSeparateDialogs(e.target.checked)} />
-                                    <span className="text-sm">Separar dialogos</span>
+                                    <span className="text-sm">Separate dialogs</span>
                                 </div>
-                                <span className="text-xs  text-gray-600">Se separaran los dialogos en diferentes traducciones cuando se haga una selección</span>
+                                <span className="text-xs  text-gray-600">Dialogs will be separated into different translations when a selection is made.</span>
                             </div>
                             <div className="my-2">
                                 <div className="flex gap-2 items-center">
                                     <Switch checked={keepContext} onChange={(e) => setKeepContext(e.target.checked)} />
-                                    <span className="text-sm">Mantener contexto</span>
+                                    <span className="text-sm">Maintain context</span>
                                 </div>
-                                <span className="text-xs  text-gray-600">Se utilizaran las traducciones anteriores para mantener el contexto</span>
+                                <span className="text-xs  text-gray-600">Previous translations will be used to maintain context.</span>
                             </div>
-                            <Button className="my-2" appearance="primary" onClick={() => setExportDialogIsShown(true)}>Exportar</Button>
+                            <Button className="my-2" appearance="primary" onClick={() => setExportDialogIsShown(true)}>Export</Button>
                         </div>
                     </div>
                 </div>
@@ -422,63 +422,63 @@ export function MainPage() {
             <Pane>
                 <Dialog
                     isShown={exportDialogIsShown}
-                    title="Exportar traducciones"
+                    title="Export translations"
                     onCloseComplete={() => setExportDialogIsShown(false)}
                     hasFooter={false}
                 >
                     <Pane width="100%">
-                        <p className="text-lg font-light mb-2">Opciones de exportación</p>
+                        <p className="text-lg font-light mb-2">Export settings</p>
                         <div className="my-2">
-                            <p className="text-sm">Nombre de archivo</p>
+                            <p className="text-sm">File name</p>
                             <TextInput
                                 width={"100%"}
-                                placeholder="Nombre de archivo"
+                                placeholder="File name"
                                 value={userFileName}
                                 onChange={(e) => setUserFileName(e.target.value)}
                             />
-                            <p className="text-xs text-gray-600">Este es el nombre que tendrá el archivo exportado:</p>
+                            <p className="text-xs text-gray-600">This will be the name of the exported file:</p>
                             <p className="text-xs text-gray-600">{generateFileName()}</p>
                         </div>
                         <div className="my-2">
-                            <span className="text-sm">Separador por imagen</span>
+                            <span className="text-sm">Separator by image</span>
                             <Textarea
-                                placeholder="Formato del titulo"
+                                placeholder="Title format"
                                 value={titleFormat}
                                 onChange={(e) => setTitleFormat(e.target.value)}
                             />
-                            <p className="text-xs text-gray-600">Este es el texto que separa las traducciones de cada imagen</p>
-                            <p className="text-xs text-gray-600">Puedes usar las siguientes variables</p>
-                            <p className="text-xs text-gray-600">{`{fileName}: Nombre del archivo (Ej. "image.png")`}</p>
-                            <p className="text-xs text-gray-600">{`{imageName}: Nombre de la imagen sin extensión (Ej. "image")`}</p>
-                            <p className="text-xs text-gray-600">{`{aliasName}: Alias de la imagen`}</p>
-                            <p className="text-xs text-gray-600">{`{orderNumber}: Número de orden de la imagen`}</p>
+                            <p className="text-xs text-gray-600">This is the text that separates the translations for each image</p>
+                            <p className="text-xs text-gray-600">The following variants can be used</p>
+                            <p className="text-xs text-gray-600">{`{fileName}: File name (E.g.: "image.png")`}</p>
+                            <p className="text-xs text-gray-600">{`{imageName}: Image name without extension (E.g.: "image")`}</p>
+                            <p className="text-xs text-gray-600">{`{aliasName}: Image alias`}</p>
+                            <p className="text-xs text-gray-600">{`{orderNumber}: Image order number`}</p>
                         </div>
                         <div className="my-2">
-                            <span className="text-sm">Formato por linea</span>
+                            <span className="text-sm">Format by line</span>
                             <Textarea
-                                placeholder="Formato de la linea"
+                                placeholder="Line format"
                                 value={lineFormat}
                                 onChange={(e) => setLineFormat(e.target.value)}
                             />
-                            <p className="text-xs text-gray-600">Este es el texto que se exporta por linea</p>
-                            <p className="text-xs text-gray-600">Puedes usar las siguientes variables</p>
-                            <p className="text-xs text-gray-600">{`{originalText}: Texto original`}</p>
-                            <p className="text-xs text-gray-600">{`{translatedText}: Texto traducido`}</p>
-                            <p className="text-xs text-gray-600">{`{orderNumber}: Nmero de orden de la línea`}</p>
+                            <p className="text-xs text-gray-600">This is the text that is exported by line</p>
+                            <p className="text-xs text-gray-600">The following variants can be used</p>
+                            <p className="text-xs text-gray-600">{`{originalText}: Original text`}</p>
+                            <p className="text-xs text-gray-600">{`{translatedText}: Translated text`}</p>
+                            <p className="text-xs text-gray-600">{`{orderNumber}: Image order number`}</p>
                         </div>
                         <div className="flex gap-2 my-2 items-center">
-                            <span className="text-sm">Exportar como archivo</span>
+                            <span className="text-sm">Export as a file</span>
                             <Select value={exportFormat} onChange={event => setExportFormat(event.target.value)}>
-                                <option value="txt">TXT (Archivo de Texto plano)</option>
-                                <option value="csv" disabled>CSV (Archivo de Valores separados por comas)</option>
-                                <option value="docx" disabled>DOCX (Archivo de Microsoft Word)</option>
+                                <option value="txt">TXT (Plain text file)</option>
+                                <option value="csv" disabled>CSV (Comma-separated values file)</option>
+                                <option value="docx" disabled>DOCX (Microsoft Word file)</option>
                                 <option value="json" disabled>JSON</option>
                                 <option value="pdf" disabled>PDF</option>
                             </Select>
                         </div>
                         <div className="flex justify-end mt-6 mb-2 gap-2">
-                            <Button onClick={() => downloadPageExport()}>Exportar solo esta imagen</Button>
-                            <Button onClick={() => downloadFullExport()} appearance="primary">Exportar todo</Button>
+                            <Button onClick={() => downloadPageExport()}>Export this image only</Button>
+                            <Button onClick={() => downloadFullExport()} appearance="primary">Export all</Button>
                         </div>
                     </Pane>
                 </Dialog>
@@ -499,30 +499,30 @@ export function MainPage() {
                             />
                         </div>
                         <div className="my-2">
-                            <span className="text-sm">Texto original</span>
+                            <span className="text-sm">Original text</span>
                             <Textarea
                                 placeholder="Texto original..."
                                 value={editingZone?.originalText || ""}
                                 onChange={(e) => setEditingZone({ ...editingZone, originalText: e.target.value })}
                                 disabled
                             />
-                            <p className="text-xs text-gray-600">Actualmente no se puede modificar el texto original</p>
+                            <p className="text-xs text-gray-600">It is currently not possible to modify the original text.</p>
                         </div>
                         <div className="my-2">
-                            <span className="text-sm">Texto traducido</span>
+                            <span className="text-sm">Translated text</span>
                             <Textarea
                                 placeholder="Texto traducido con IA..."
                                 value={editingZone?.translatedText || ""}
                                 onChange={(e) => setEditingZone({ ...editingZone, translatedText: e.target.value })}
                             />
-                            <p className="text-xs text-gray-600">Puedes modificar el texto traducido</p>
+                            <p className="text-xs text-gray-600">You can modify the translated text</p>
                         </div>
                         <div className="flex justify-end mt-6 mb-2 gap-2">
                             <Button
                                 appearance="primary"
                                 onClick={() => saveEditingZone()}
                             >
-                                Guardar
+                                Save
                             </Button>
                         </div>
                     </Pane>
@@ -542,10 +542,10 @@ export function MainPage() {
                             src="/capibara.png"
                             alt="Capibara"
                             width="128px"
-                            />
+                        />
                         <div>
-                            <p className="text-4xl text-white font-light">Traduciendo...</p>
-                            <p className="ml-1 mt-2 text-gray-300 font-light">Estamos traduciendo tu imagen<br />esto puede tardar unos segundos...</p>
+                            <p className="text-4xl text-white font-light">Translating...</p>
+                            <p className="ml-1 mt-2 text-gray-300 font-light">We're translating your image<br />this may take a few seconds...</p>
                         </div>
                     </div>
                 </div>
