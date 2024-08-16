@@ -164,22 +164,6 @@ export function MainPage() {
         });
     }
 
-    const translateAllTexts = () => {
-        if (!$imagesFiles?.[selectedImageName]?.file) {
-            toaster.warning("No image has been selected");
-            return;
-        }
-        const file = $imagesFiles[selectedImageName].file;
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function () {
-            translateZone(selectedImageName, reader.result);
-        };
-        reader.onerror = function (error) {
-            console.log('Error: ', error);
-        };
-    }
-
     const removeAllTranslations = () => {
         translations.set({});
     }
