@@ -164,10 +164,6 @@ export function MainPage() {
         });
     }
 
-    const removeAllTranslations = () => {
-        translations.set({});
-    }
-
     const downloadTXT = (fileName, content) => {
         const blob = new Blob([content], { type: 'text/plain' });
         const link = document.createElement('a');
@@ -297,11 +293,6 @@ export function MainPage() {
                     <div className="flex gap-2 w-full h-[calc(40svh-2rem)] mt-[2rem] bg-white bg-opacity-95 shadow-sm rounded-md px-4 py-2">
                         <div className="w-[calc(50%-1rem)] overflow-y-auto">
                             <p className="text-lg font-light my-2">Translations</p>
-                            <div className="flex flex-wrap w-full gap-2 my-2 items-center justify-evenly">
-                                <Button appearance="minimal" onClick={() => removeAllTranslations()}>
-                                    Delete all texts in image
-                                </Button>
-                            </div>
                             <ul className="flex flex-wrap gap-2">
                                 {$translations[selectedImageName] && $translations[selectedImageName].map((selectedZone, index) => (
                                     <li key={index} className="hover:bg-gray-100 rounded-md w-full">
@@ -360,9 +351,9 @@ export function MainPage() {
                                     <option value="ko">Korean</option>
                                     <option value="pt">Portuguese</option>
                                     <option value="es">Spanish</option>
-                                    <option value="ko">Chinese</option>
-                                    <option value="pt">French</option>
-                                    <option value="es">Arabic</option>
+                                    <option value="zh">Chinese</option>
+                                    <option value="fr">French</option>
+                                    <option value="ar">Arabic</option>
                                 </Select>
                                 <span className="text-sm">to</span>
                                 <Select value={toLanguage} onChange={event => setToLanguage(event.target.value)}>
@@ -371,9 +362,9 @@ export function MainPage() {
                                     <option value="ko">Korean</option>
                                     <option value="pt">Portuguese</option>
                                     <option value="es">Spanish</option>
-                                    <option value="ko">Chinese</option>
-                                    <option value="pt">French</option>
-                                    <option value="es">Arabic</option>
+                                    <option value="zh">Chinese</option>
+                                    <option value="fr">French</option>
+                                    <option value="ar">Arabic</option>
                                 </Select>
                             </div>
                             <div className="flex gap-2 my-2 items-center">
