@@ -239,7 +239,7 @@ export function MainPage() {
                     <div className="flex align-middle justify-between mb-4">
                         <div className="my-auto">
                             <p className="text-2xl">Capibara Traductor</p>
-                            <p className="my-auto">Image translator</p>
+                            <p className="my-auto">Your AI Image translator</p>
                         </div>
                         <img
                             className="object-cover"
@@ -299,7 +299,7 @@ export function MainPage() {
                             <p className="text-lg font-light my-2">Translations</p>
                             <div className="flex flex-wrap w-full gap-2 my-2 items-center justify-evenly">
                                 <Button appearance="minimal" onClick={() => removeAllTranslations()}>
-                                    Delete all texts in image
+                                    Remove translations
                                 </Button>
                             </div>
                             <ul className="flex flex-wrap gap-2">
@@ -360,9 +360,9 @@ export function MainPage() {
                                     <option value="ko">Korean</option>
                                     <option value="pt">Portuguese</option>
                                     <option value="es">Spanish</option>
-                                    <option value="ko">Chinese</option>
-                                    <option value="pt">French</option>
-                                    <option value="es">Arabic</option>
+                                    <option value="zh">Chinese</option>
+                                    <option value="fr">French</option>
+                                    <option value="ar">Arabic</option>
                                 </Select>
                                 <span className="text-sm">to</span>
                                 <Select value={toLanguage} onChange={event => setToLanguage(event.target.value)}>
@@ -371,9 +371,9 @@ export function MainPage() {
                                     <option value="ko">Korean</option>
                                     <option value="pt">Portuguese</option>
                                     <option value="es">Spanish</option>
-                                    <option value="ko">Chinese</option>
-                                    <option value="pt">French</option>
-                                    <option value="es">Arabic</option>
+                                    <option value="zh">Chinese</option>
+                                    <option value="fr">French</option>
+                                    <option value="ar">Arabic</option>
                                 </Select>
                             </div>
                             <div className="flex gap-2 my-2 items-center">
