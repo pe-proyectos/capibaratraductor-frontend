@@ -164,6 +164,10 @@ export function MainPage() {
         });
     }
 
+    const removeAllTranslations = () => {
+        translations.set({});
+    }
+
     const downloadTXT = (fileName, content) => {
         const blob = new Blob([content], { type: 'text/plain' });
         const link = document.createElement('a');
@@ -235,7 +239,7 @@ export function MainPage() {
                     <div className="flex align-middle justify-between mb-4">
                         <div className="my-auto">
                             <p className="text-2xl">Capibara Traductor</p>
-                            <p className="my-auto">Image translator</p>
+                            <p className="my-auto">Your AI Image translator</p>
                         </div>
                         <img
                             className="object-cover"
@@ -293,6 +297,11 @@ export function MainPage() {
                     <div className="flex gap-2 w-full h-[calc(40svh-2rem)] mt-[2rem] bg-white bg-opacity-95 shadow-sm rounded-md px-4 py-2">
                         <div className="w-[calc(50%-1rem)] overflow-y-auto">
                             <p className="text-lg font-light my-2">Translations</p>
+                            <div className="flex flex-wrap w-full gap-2 my-2 items-center justify-evenly">
+                                <Button appearance="minimal" onClick={() => removeAllTranslations()}>
+                                    Remove translations
+                                </Button>
+                            </div>
                             <ul className="flex flex-wrap gap-2">
                                 {$translations[selectedImageName] && $translations[selectedImageName].map((selectedZone, index) => (
                                     <li key={index} className="hover:bg-gray-100 rounded-md w-full">
