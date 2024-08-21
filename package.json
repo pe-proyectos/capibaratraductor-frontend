@@ -25,5 +25,12 @@
   },
   "resolutions": {
     "wrap-ansi": "^7.0.0"
+  },
+  "module": "index.ts",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   }
 }
