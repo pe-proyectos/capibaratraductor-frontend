@@ -46,6 +46,10 @@ export function MainPage() {
     const [exportloginIsShown, setExportloginIsShown] = useState(false); //Login
     const [userloginEmail, setUserloginEmail] = useState(''); //Email
     const [userloginPassword, setUserloginPassword] = useState(''); //Password
+    const [exportRegisterIsShown, setExportRegisterIsShown] = useState(false); //Register
+    const [userResgisterEmail, setUserResgisterEmail] = useState(''); //Register-email
+    const [userRegisterPassword, setUserRegisterPassword] = useState(''); //Register-Password
+    const [userRegisterConfirmPassword, setUserRegisterConfirmPassword] = useState(''); //Register-CPassword
 
     useEffect(() => {
         if (!$imagesFiles[selectedImageName]) {
@@ -287,7 +291,50 @@ export function MainPage() {
                                 <div className="my-2" align="center">
                                 <Button appearance="primary" size="large" className="my-2" alignContent="center" width="80%">Login</Button>
                                 <p className="text-sm  font-light mb-2">Not a menber?</p>
-                                <p className="text-sm text-blue-600 font-light mb-2 hover:underline">Signup now</p>
+                                <a className="text-sm text-blue-600 font-light mb-2 hover:underline" onClick={() => {
+                                        setExportRegisterIsShown(true);
+                                        setExportloginIsShown(false);
+                                }}>Signup now</a>
+                                </div>
+                            </Pane>
+                        </Dialog>
+                    </Pane>
+                    <Pane>
+                        <Dialog
+                            isShown={exportRegisterIsShown}
+                            title="Sign up"
+                            onCloseComplete={() => setExportRegisterIsShown(false)}
+                            hasFooter={false}>
+                            <Pane width="100%">
+                                <div className="my-2">
+                                    <p className="text-sm">Email Address</p>
+                                    <TextInput
+                                        width={"100%"}
+                                        placeholder="Email Address"
+                                        value={userResgisterEmail}
+                                        onChange={(e) => setUserResgisterEmail(e.target.value)} //email
+                                    />
+                                </div>
+                                <div className="my-2">
+                                    <p className="text-sm">Password</p>
+                                    <TextInput
+                                        width={"100%"}
+                                        placeholder="Password"
+                                        value={userRegisterPassword}
+                                        onChange={(e) => setUserRegisterPassword(e.target.value)}
+                                    />
+                                </div>
+                                <div className="my-2">
+                                    <p className="text-sm">Confirm Password</p>
+                                    <TextInput
+                                        width={"100%"}
+                                        placeholder="Confirm Password"
+                                        value={userRegisterConfirmPassword}
+                                        onChange={(e) => setUserRegisterConfirmPassword(e.target.value)}
+                                    />
+                                </div>
+                                <div className="my-2" align="center">
+                                <Button appearance="primary" size="large" className="my-2" alignContent="center" width="80%">Sign up</Button>
                                 </div>
                             </Pane>
                         </Dialog>
