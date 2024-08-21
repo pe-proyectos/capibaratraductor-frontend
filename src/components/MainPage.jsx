@@ -15,6 +15,7 @@ import {
 import { ImageFileUploader } from "./ImageFileUploader";
 import { ImageCanvas } from "./ImageCanvas";
 import { imagesFiles, translations } from './stores';
+import { UserIcon } from 'evergreen-ui'
 
 export function MainPage() {
     const $translations = useStore(translations);
@@ -42,6 +43,9 @@ export function MainPage() {
     const [loadingOverlayIsShown, setLoadingOverlayIsShown] = useState(false);
     const [exportDialogIsShown, setExportDialogIsShown] = useState(false);
     const [manualCorrectionDialogIsShown, setManualCorrectionDialogIsShown] = useState(false);
+    const [exportloginIsShown, setExportloginIsShown] = useState(false); //Login
+    const [userloginEmail, setUserloginEmail] = useState(''); //Email
+    const [userloginPassword, setUserloginPassword] = useState(''); //Password
 
     useEffect(() => {
         if (!$imagesFiles[selectedImageName]) {
@@ -94,7 +98,7 @@ export function MainPage() {
             translated: true
         });
         setEditingZone(null);
-        setManualCorrectionDialogIsShown(false);Español
+        setManualCorrectionDialogIsShown(false); Español
     }
 
     const translateZone = async (imageName, base64String) => {
@@ -248,6 +252,46 @@ export function MainPage() {
                             width="128px"
                         />
                     </div>
+                    <div className="my-5">
+                        <p className="text-md font-light my-2">Used Credits 2/5</p>
+                        <div className="my-2">
+                            <Button appearance="primary" size="large" iconBefore={UserIcon} onClick={() => setExportloginIsShown(true)}>Login</Button>
+                        </div>
+                    </div>
+                    <Pane>
+                        <Dialog
+                            isShown={exportloginIsShown}
+                            title="Login Form"
+                            onCloseComplete={() => setExportloginIsShown(false)}
+                            hasFooter={false}>
+                            <Pane width="100%">
+                                <div className="my-2">
+                                    <p className="text-sm">Email Address</p>
+                                    <TextInput
+                                        width={"100%"}
+                                        placeholder="Email Address"
+                                        value={userloginEmail}
+                                        onChange={(e) => setUserloginEmail(e.target.value)} //email
+                                    />
+                                </div>
+                                <div className="my-2">
+                                    <p className="text-sm">Password</p>
+                                    <TextInput
+                                        width={"100%"}
+                                        placeholder="Password"
+                                        value={userloginPassword}
+                                        onChange={(e) => setUserloginPassword(e.target.value)}//password
+                                    />
+                                </div>
+                                <p className="text-sm text-blue-600 font-light mb-2 hover:underline" color="primary">Forgot Password?</p>
+                                <div className="my-2" align="center">
+                                <Button appearance="primary" size="large" className="my-2" alignContent="center" width="80%">Login</Button>
+                                <p className="text-sm  font-light mb-2">Not a menber?</p>
+                                <p className="text-sm text-blue-600 font-light mb-2 hover:underline">Signup now</p>
+                                </div>
+                            </Pane>
+                        </Dialog>
+                    </Pane>
                     <ImageFileUploader />
                     <p className={"text-2xl my-4" + (Object.values($imagesFiles).length > 0 ? "" : " hidden")}>Files</p>
                     <ul>
